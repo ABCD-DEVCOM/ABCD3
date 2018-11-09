@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Export-Package: cu.uci.abos.widget.template.component;version="2.0.0",
+ cu.uci.abos.widget.template.util
+Import-Bundle: org.eclipse.rap.rwt;version="[3.0.0,4.0.0)"
+Bundle-Version: 1.0.0
+Bundle-Name: Component
+Bundle-ManifestVersion: 2
+Import-Package: cu.uci.abcd.cataloguing;version="[1.0.0,1.0.0]",cu.uci
+ .abcd.dataprovider.jisis;version="[2.0.0,2.0.0]",cu.uci.abcd.dataprov
+ ider.jisis.exception;version="[2.0.0,2.0.0]",cu.uci.abcd.dataprovider
+ .jisis.impl.search.option;version="[2.0.0,2.0.0]",cu.uci.abcd.domain.
+ management.library;version="[1.0.0,1.0.0]",cu.uci.abos.api.ui;version
+ ="[2.0.0,2.0.0]",cu.uci.abos.core.security;version="[2.0.0,2.0.0]",cu
+ .uci.abos.core.util;version="[2.0.0,2.0.0]",cu.uci.abos.widget.repeat
+ able.field;version="[2.0.0,2.0.0]",cu.uci.abos.widget.repeatable.fiel
+ d.domain,cu.uci.abos.widget.repeatable.field.listener;version="[2.0.0
+ ,2.0.0]",cu.uci.abos.widget.repeatable.field.util;version="[2.0.0,2.0
+ .0]",javax.servlet.http;version="[2.6.0,2.6.0]",org.unesco.jisis.core
+ lib.common,org.unesco.jisis.corelib.record
+Bundle-SymbolicName: cu.uci.abos.widget.template.component
+
