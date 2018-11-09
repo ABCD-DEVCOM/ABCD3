@@ -13,5 +13,5 @@ The software has been developed - and is still being developed - by a Cuban team
 the Ministry of Education (including secundary schools and research institutions) are installing the software, so there is already
 a larger user-base with lots of experiences.
 
-The ABCD 3.0 package includes J-ISIS, Virgo-server and a PostgreSQ-installation script. Java needs to be available on the server
+The ABCD 3.0 package includes J-ISIS, Virgo-server and a PostgreSQL-database backup. Java needs to be available on the server
 Currently only Linux is supported while in principle all software will also run in Windows.
