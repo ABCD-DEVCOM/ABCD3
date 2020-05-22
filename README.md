@@ -1,17 +1,27 @@
-# ABCD3
-New generation ABCD using J-ISIS and PostgreSQL
+# Branch to ABCD 3.0 TSP Custom Deployment Project
 
-In order to drop limits posed by the 'traditional' ISIS technology (as implemented e.g. in CISIS of BIREME), 
-the third generation of ABCD is using J-ISIS, which uses Berkeley DB as a storage engine and LUCENE for indexing,.
-Otherwise the main principles of ISIS (FDT, FST, PFT) are still used as well as the concepts of flexibility (allowing any 
-bibiographic standard to be used along with other database-structures) and 'Swiss Knife' multi-purpose ideas.
-ABCD 3.0 is a hybrid system, using PostgreSQL for the management of administrative data in the library system (users, 
-permissions, profiles, loanobjects, circulation rules).
+### Status
+    Support
 
-The software has been developed - and is still being developed - by a Cuban team working at the Universidad de Ciencias Informáticas
-(UCI) and is now used at all universities and higher education institutions in the country. Currently also the institutions of 
-the Ministry of Education (including secundary schools and research institutions) are installing the software, so there is already
-a larger user-base with lots of experiences.
+### Developers
+    * Alberto Alejandro Arias Benitez
+    * Basilio Puentes Rodriguez
+    * Luis Felipe De La Vega  
+    
+### Preconditions  
+Run:        
 
-The ABCD 3.0 package includes J-ISIS, Virgo-server and a PostgreSQL-database backup. Java needs to be available on the server
-Currently only Linux is supported while in principle all software will also run in Windows.
+    #Script necesary to create new statistics table on data base
+      
+### Improvements
+* Add custom indicators.
+* Changes in __Normal View__ specification on __Opac Module__  
+
+
+
+### Affected Modules
+* Opac
+
+### Data Base Changes 
+* Add statistics table for __Opac__ indicators
+* Modify __DAO's Module__ and __Domain's Module__

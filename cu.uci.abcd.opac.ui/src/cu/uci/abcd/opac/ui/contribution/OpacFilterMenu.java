@@ -63,12 +63,10 @@ public class OpacFilterMenu implements PlatformContributor {
 	private Composite filters;
 	private Composite materialTypeCompo;
 	private Composite locationCompo;
-	private Composite locationCompoII;
 	private Composite dateCompo;
 
 	private ExpandItem materialTypeExpItem;
 	private ExpandItem locationExpItem;
-	private ExpandItem locationIIExpItem;
 	private ExpandItem dateExpItem;
 
 	private Label filtersName;
@@ -80,10 +78,8 @@ public class OpacFilterMenu implements PlatformContributor {
 	private Button nonBookMaterialsCheck;
 
 	private Button allLibraryCheck;
-	private Button allLibraryCheckII;
 	private Button libraryCheck;
 	private Button lastLibrary;
-	private int libraryMiddle;
 
 	private Button addDate;
 	private Image addDateImage;
@@ -145,7 +141,7 @@ public class OpacFilterMenu implements PlatformContributor {
 
 		FormDatas.attach(leftLogo).atTop().atRight().atBottom();
 
-		filters = new Composite(result, SWT.NONE);
+		filters = new Composite(result, SWT.V_SCROLL);
 		filters.setLayout(new FormLayout());
 		filters.setData(RWT.CUSTOM_VARIANT, "workspace_content");
 
@@ -190,13 +186,12 @@ public class OpacFilterMenu implements PlatformContributor {
 		FormDatas.attach(nonBookMaterialsCheck).atTopTo(thesisCheck).atLeft(3);
 
 		/**
-		 * Location 1
+		 * Location
 		 */
 
 		locationExpItem = new ExpandItem(filterExpandBar, 0);
 
-		locationCompo = new Composite(filterExpandBar, SWT.NONE);
-
+		locationCompo = new Composite(filterExpandBar, SWT.V_SCROLL | SWT.H_SCROLL);
 		locationCompo.setLayout(new FormLayout());
 
 		allLibraryCheck = new Button(locationCompo, SWT.CHECK);
@@ -206,7 +201,6 @@ public class OpacFilterMenu implements PlatformContributor {
 		try {
 			controller = mainContent.getController();
 			libraries = ((ConsultMaterialsController) controller).findAllLibrary();
-
 			findLibrary();
 			printLibrary(true);
 
@@ -214,38 +208,12 @@ public class OpacFilterMenu implements PlatformContributor {
 			e.printStackTrace();
 		}
 
-		locationExpItem.setHeight(locationCompo.computeSize(SWT.DEFAULT, SWT.DEFAULT).y);
-
 		locationExpItem.setControl(locationCompo);
 
-		/**
-		 * Location 2
-		 */
-
-		if (libraries.size() > 11) {
-
-			locationIIExpItem = new ExpandItem(filterExpandBar, 0);
-
-			locationCompoII = new Composite(filterExpandBar, SWT.NONE);
-
-			locationCompoII.setLayout(new FormLayout());
-
-			allLibraryCheckII = new Button(locationCompoII, SWT.CHECK);
-			allLibraryCheckII.setSelection(true);
-			FormDatas.attach(allLibraryCheckII).atTop(5).atLeft(3);
-
-			try {
-				findLibraryII();
-				printLibraryII(true);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-			locationIIExpItem.setControl(locationCompoII);
-
-			locationIIExpItem.setHeight(locationCompoII.computeSize(SWT.DEFAULT, SWT.DEFAULT).y);
-
-		}
+		// if (locationCompo.computeSize(SWT.DEFAULT, SWT.DEFAULT).y < 140)
+		locationExpItem.setHeight(locationCompo.computeSize(SWT.DEFAULT, SWT.DEFAULT).y);
+		// else
+		// locationExpItem.setHeight(140);
 
 		// ** Date ** \\
 
@@ -403,7 +371,7 @@ public class OpacFilterMenu implements PlatformContributor {
 					}
 
 					try {
-
+						
 						mainContent.before = Integer.parseInt(customRange2.getText());
 
 					} catch (Exception e) {
@@ -412,13 +380,13 @@ public class OpacFilterMenu implements PlatformContributor {
 
 					if (after > before)
 						RetroalimentationUtils.showErrorShellMessage("El rango de fecha no es correcto.");
-					else {
-
+					else {					
+    
 						if (!mainContent.getFindByDate()) {
 							addDateImage = new Image(parent.getDisplay(), RWT.getResourceManager().getRegisteredContent("minus"));
-							addDate.setImage(addDateImage);
+							addDate.setImage(addDateImage);	
 							update();
-							mainContent.setFindByDate(true);
+							mainContent.setFindByDate(true);							
 
 						} else {
 							addDateImage = new Image(parent.getDisplay(), RWT.getResourceManager().getRegisteredContent("plus"));
@@ -457,30 +425,17 @@ public class OpacFilterMenu implements PlatformContributor {
 
 				if (allLibraryCheck.getSelection()) {
 					selectedLibraries.clear();
-
-					if (libraries.size() > 11) {
-						for (int i = 0; i < libraryMiddle; i++)
-							selectedLibraries.add(libraries.get(i));
-
-					} else {
-						selectedLibraries.addAll(libraries);
-					}
-
+					selectedLibraries.addAll(libraries);
 					printLibrary(true);
+					l10n();
 
 				} else {
 					selectedLibraries.clear();
 					printLibrary(false);
+					l10n();
+
 				}
 
-				if (allLibraryCheckII.getSelection()) {
-					for (int i = libraryMiddle; i < libraries.size(); i++)
-						selectedLibraries.add(libraries.get(i));
-
-					printLibraryII(true);
-				}
-
-				l10n();
 				findWithFilters();
 			}
 
@@ -488,55 +443,6 @@ public class OpacFilterMenu implements PlatformContributor {
 			public void widgetDefaultSelected(SelectionEvent arg0) {
 			}
 		});
-
-		if (libraries.size() > 11) {
-			allLibraryCheckII.addSelectionListener(new SelectionListener() {
-				private static final long serialVersionUID = 1L;
-
-				@Override
-				public void widgetSelected(SelectionEvent arg0) {
-
-					try {
-
-						Control[] temp = locationCompoII.getChildren();
-						for (int i = 1; i < temp.length; i++)
-							temp[i].dispose();
-
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-
-					if (allLibraryCheckII.getSelection()) {
-						selectedLibraries.clear();
-
-						for (int i = libraryMiddle; i < libraries.size(); i++)
-							selectedLibraries.add(libraries.get(i));
-
-						printLibraryII(true);
-
-					} else {
-						selectedLibraries.clear();
-						printLibraryII(false);
-
-					}
-
-					if (allLibraryCheck.getSelection()) {
-						for (int i = 0; i < libraryMiddle; i++)
-							selectedLibraries.add(libraries.get(i));
-
-						printLibrary(true);
-					}
-
-					l10n();
-					findWithFilters();
-				}
-
-				@Override
-				public void widgetDefaultSelected(SelectionEvent arg0) {
-				}
-			});
-
-		}
 
 		if (libraries.size() > 6) {
 
@@ -548,7 +454,6 @@ public class OpacFilterMenu implements PlatformContributor {
 
 					materialTypeExpItem.setExpanded(false);
 					locationExpItem.setExpanded(false);
-					locationIIExpItem.setExpanded(false);
 					dateExpItem.setExpanded(false);
 
 					((ExpandItem) arg0.item).setExpanded(true);
@@ -568,7 +473,6 @@ public class OpacFilterMenu implements PlatformContributor {
 		} else {
 			materialTypeExpItem.setExpanded(true);
 			locationExpItem.setExpanded(false);
-			locationIIExpItem.setExpanded(false);
 			dateExpItem.setExpanded(false);
 		}
 
@@ -605,10 +509,7 @@ public class OpacFilterMenu implements PlatformContributor {
 		nonBookMaterialsCheck.setText((MessageUtil.unescape(AbosMessages.get().LABEL_FILTER_MATERIAL_NON_BOOK_MATERIAL)));
 
 		locationExpItem.setText(MessageUtil.unescape(AbosMessages.get().LABEL_FILTER_LOCATION));
-		locationIIExpItem.setText(MessageUtil.unescape(AbosMessages.get().LABEL_FILTER_LOCATION) + " II");
-
 		allLibraryCheck.setText(MessageUtil.unescape(AbosMessages.get().LABEL_FILTER_LOCATION_ALL_LIBRARY));
-		allLibraryCheckII.setText(MessageUtil.unescape(AbosMessages.get().LABEL_FILTER_LOCATION_ALL_LIBRARY));
 
 		dateExpItem.setText((MessageUtil.unescape(AbosMessages.get().LABEL_FILTER_PUBLICATION_DATE)));
 		sinceLabel.setText((MessageUtil.unescape(AbosMessages.get().LABEL_FILTER_PUBLICATION_DATE_SINCE)));
@@ -619,9 +520,6 @@ public class OpacFilterMenu implements PlatformContributor {
 
 		locationExpItem.setExpanded(!locationExpItem.getExpanded());
 		locationExpItem.setExpanded(!locationExpItem.getExpanded());
-
-		locationIIExpItem.setExpanded(!locationIIExpItem.getExpanded());
-		locationIIExpItem.setExpanded(!locationIIExpItem.getExpanded());
 
 		dateExpItem.setExpanded(!dateExpItem.getExpanded());
 		dateExpItem.setExpanded(!dateExpItem.getExpanded());
@@ -635,14 +533,9 @@ public class OpacFilterMenu implements PlatformContributor {
 
 	private void printLibrary(boolean select) {
 
-		libraryMiddle = libraries.size();
-
-		if (libraryMiddle > 11)
-			libraryMiddle = 11;
-
 		lastLibrary = allLibraryCheck;
 
-		for (int i = 0; i < libraryMiddle; i++) {
+		for (int i = 0; i < libraries.size(); i++) {
 
 			currentLibrary = libraries.get(i);
 			libraryCheck = new Button(locationCompo, SWT.CHECK);
@@ -662,6 +555,7 @@ public class OpacFilterMenu implements PlatformContributor {
 								selectedLibraries.add(libraries.get(j));
 								break;
 							}
+
 						}
 					else
 						for (int j = 0; j < selectedLibraries.size(); j++)
@@ -681,56 +575,7 @@ public class OpacFilterMenu implements PlatformContributor {
 
 			lastLibrary = libraryCheck;
 		}
-	}
 
-	private void printLibraryII(boolean select) {
-
-		libraryMiddle = libraries.size();
-
-		if (libraryMiddle > 11)
-			libraryMiddle = 11;
-
-		lastLibrary = allLibraryCheckII;
-
-		for (int i = 11; i < libraries.size(); i++) {
-
-			currentLibrary = libraries.get(i);
-			libraryCheck = new Button(locationCompoII, SWT.CHECK);
-			libraryCheck.setText(currentLibrary.getLibraryName());
-			libraryCheck.setSelection(select);
-			FormDatas.attach(libraryCheck).atTopTo(lastLibrary).atLeft(10);
-
-			libraryCheck.addSelectionListener(new SelectionListener() {
-				private static final long serialVersionUID = 1L;
-
-				@Override
-				public void widgetSelected(SelectionEvent event) {
-
-					if (((Button) event.widget).getSelection())
-						for (int j = 0; j < libraries.size(); j++) {
-							if (((Button) event.widget).getText() == libraries.get(j).getLibraryName()) {
-								selectedLibraries.add(libraries.get(j));
-								break;
-							}
-						}
-					else
-						for (int j = 0; j < selectedLibraries.size(); j++)
-							if (((Button) event.widget).getText() == selectedLibraries.get(j).getLibraryName()) {
-								selectedLibraries.remove(j);
-								break;
-							}
-
-					findWithFilters();
-					update();
-				}
-
-				@Override
-				public void widgetDefaultSelected(SelectionEvent arg0) {
-				}
-			});
-			
-			lastLibrary = libraryCheck;
-		}
 	}
 
 	private void findWithFilters() {
@@ -740,6 +585,7 @@ public class OpacFilterMenu implements PlatformContributor {
 				mainContent.find();
 			else
 				mainContent.findAdvance();
+
 	}
 
 	public List<Option> getFilterOptions() {
@@ -759,6 +605,7 @@ public class OpacFilterMenu implements PlatformContributor {
 			optionOR = new OptionOR(field, term, group);
 			filterOptions.add(optionOR);
 		}
+
 	}
 
 	private void removeOption(String term) {
@@ -771,6 +618,7 @@ public class OpacFilterMenu implements PlatformContributor {
 			option = new Option(filterOptions.get(0).getField(), filterOptions.get(0).getTerm(), recordTypeGroup);
 			filterOptions.set(0, option);
 		}
+
 	}
 
 	public List<Library> getSelectedLibraries() {
@@ -790,20 +638,6 @@ public class OpacFilterMenu implements PlatformContributor {
 		}
 	}
 
-	public void findLibraryII() {
-		selectedLibraries.clear();
-		selectedLibraries.addAll(libraries);
-
-		Control[] temp = locationCompoII.getChildren();
-
-		try {
-			for (int i = 0; i < temp.length; i++)
-				((Button) temp[i]).setSelection(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	public void cleanYears() {
 		customRange1.setText("");
 		customRange2.setText("");
@@ -814,5 +648,7 @@ public class OpacFilterMenu implements PlatformContributor {
 
 		for (int i = 0; i < materials.length; i++)
 			((Button) materials[i]).setSelection(false);
+
 	}
+
 }
