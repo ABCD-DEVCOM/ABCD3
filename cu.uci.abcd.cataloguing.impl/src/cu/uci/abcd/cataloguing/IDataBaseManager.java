@@ -1,6 +1,5 @@
 package cu.uci.abcd.cataloguing;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.unesco.jisis.corelib.common.FieldSelectionTable;
@@ -66,7 +65,5 @@ public interface IDataBaseManager {
 	//Implement RF_CA2_Display data of the Exemplary Record
 	//Implement RF_CA10_Display data of the Authorities Record
 	public Record getLastRecord(String databaseName) throws JisisDatabaseException;
-	
-	public ArrayList<String> getAvailableDatabases();
 
 }

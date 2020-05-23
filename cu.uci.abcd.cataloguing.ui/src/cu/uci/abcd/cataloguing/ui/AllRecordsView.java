@@ -313,7 +313,7 @@ public class AllRecordsView extends ContributorPage{
 			
 			changeCombo.addListener(SWT.Selection, new EventChangeView(browser, service, dataBaseName, changeCombo, this));
 			
-            mfnNumberText.addKeyListener(new EventChangeMFN(browser, dataBaseName, service, mfnNumberText, start,
+            mfnNumberText.addKeyListener(new EventChangeMFN(browser, dataBaseName, service, mfnNumberText, changeCombo, start,
 					toward, last, back, this));
             
             //options Events
@@ -330,7 +330,7 @@ public class AllRecordsView extends ContributorPage{
 	
 	public void setDataBaseName(String dataBaseName){
 		this.dataBaseName = dataBaseName;
-		String exemplaryDataBaseName = BibliographicConstant.BIBLIOGRAPHIC_DATABASE;
+		String exemplaryDataBaseName = BibliographicConstant.BIBLIOGRAPHIC_DATA_BASE;
 		String authoritiesDataBaseName = BibliographicConstant.AUTHORITIES_DATABASE;
 		
 		if(dataBaseName.equals(exemplaryDataBaseName))

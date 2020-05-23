@@ -131,12 +131,6 @@ public class CustomControlDecoration {
 			CreateDecorateToDoubleField(decoratedControls[0], position, maxLenght);
 			break;
 		}
-		case DOUBLE_WITH_CERO: {
-			CreateDecorateToDoubleWithCeroField(decoratedControls[0], position, maxLenght);
-			break;
-		}
-		
-		
 		//case DATE_RANGE: {
 		//	DecoratedControl auxDecoratedControl = decoratedControls[0];
 		//	DecoratedControl auxDecoratedControl2 = decoratedControls[1];
@@ -710,26 +704,6 @@ public class CustomControlDecoration {
 			@Override
 			public void handleEvent(Event arg0) {
 				CustomValidation.ValidateFieldDouble(controlDecoration, maxLenght);
-				decorationFactory.paint(controlDecoration.getControl());
-			}
-		});
-	}
-	
-	
-	
-	private void CreateDecorateToDoubleWithCeroField(DecoratedControl decoratedControl, int position, final int maxLenght) {
-		String image = "DEC_ERROR";
-		final ControlDecoration controlDecoration = CreateDecorateToFieldAs(decoratedControl.getDecorateControl(), image, decoratedControl.getDecorateControlKey(), decoratedControl.getText(), false,
-				position);
-		decoratedControl.getDecorateControl().addListener(SWT.Modify, new Listener() {
-			/**
-					 * 
-					 */
-			private static final long serialVersionUID = 7320708214963684394L;
-
-			@Override
-			public void handleEvent(Event arg0) {
-				CustomValidation.ValidateFieldDoubleWithCero(controlDecoration, maxLenght);
 				decorationFactory.paint(controlDecoration.getControl());
 			}
 		});

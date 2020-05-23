@@ -312,16 +312,14 @@ public class EventButtonSave implements Listener {
 						record1.getField(100).setFieldValue("^a" + lastRecord1.getField(3).getFieldValue());
 
 						String tempRecordType = (String) (lastRecord1.getField(6).getFieldValue());
-						record1.getField(3006).setFieldValue(tempRecordType);
-						
 
-						//tempRecordType = (String) tempRecordType.subSequence(0, tempRecordType.length() - 1);
-						/*
+						tempRecordType = (String) tempRecordType.subSequence(0, tempRecordType.length() - 1);
+
 						if (tempRecordType.equals("Tesis"))
 							record1.getField(3006).setFieldValue("Tesis");
 						else
 							record1.getField(3006).setFieldValue(returnRecordTypeStandar(tempRecordType));
-						*/
+
 						((AllManagementController) controller).getAcquisition().registerAcquisition(record1, dataBaseNameCataloguin, library.getIsisDefHome());
 
 						/***/   

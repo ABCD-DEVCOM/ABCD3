@@ -124,7 +124,7 @@ public class EventDeleteRecord implements Listener{
 							IDataBaseManager dataBaseManager = controller.getDataBaseManagerService();
 
 							//removedRecord
-							if(dataBaseName.equals(BibliographicConstant.BIBLIOGRAPHIC_DATABASE)){
+							if(dataBaseName.equals(BibliographicConstant.BIBLIOGRAPHIC_DATA_BASE)){
 								canDelete = exemplaryRecord.deleteExemplaryRecord(dataBaseManager, record, dataBaseName, loanObjectCreation);
 								recordsCount = service.totalRecords(dataBaseName, isisDefHome);
 							}

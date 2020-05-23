@@ -162,7 +162,7 @@ public class ConsultLogAcquisition extends ContributorPage implements Contributo
 					RetroalimentationUtils.showInformationMessage(compoButton1, AbosMessages.get().MESSAGES_YOU_MUST_SPECIFY_AT_LEAST_ONE_SEARCH_CRITERIA);
 				else {
 
-					title = "\"" + txtTitle.getText() + "\"";
+					title = "\"" + txtTitle.getText() + "\"";					
 					lbCoincidenceList.setVisible(true);
 					consultLogAcquisitionTable.setVisible(true);
 
@@ -181,17 +181,9 @@ public class ConsultLogAcquisition extends ContributorPage implements Contributo
 						// table.setVisible(false);
 						RetroalimentationUtils.showInformationMessage(compoButton1, cu.uci.abos.core.l10n.AbosMessages.get().MSG_INF_NO_COINCIDENCES_FOUND);
 					}
-
-					try {
-						group.getParent().layout(true, true);
-						group.getParent().redraw();
-						group.getParent().update();
-						consultLogAcquisitionTable.refresh();
-
-					} catch (Exception e2) {
-						// TODO: handle exception
-					}
-
+					group.getParent().layout(true, true);
+					group.getParent().redraw();
+					group.getParent().update();
 				}
 			}
 		});
@@ -261,7 +253,6 @@ public class ConsultLogAcquisition extends ContributorPage implements Contributo
 
 			}
 		});
-
 		consultLogAcquisitionTable.addDeleteListener(new TreeColumnListener() {
 
 			@Override
@@ -269,7 +260,7 @@ public class ConsultLogAcquisition extends ContributorPage implements Contributo
 
 				try {
 					RecordRow d = (RecordRow) event.entity.getRow();
-					final long mfn = d.getMfn();
+					long mfn = d.getMfn();
 
 					record = ((AllManagementController) controller).getAcquisition().getRecordByMfn(mfn, "DEF_HOME");
 					// record = dataBaseManager.getRecordByMfn(mfn, "DEF_HOME");
@@ -282,21 +273,11 @@ public class ConsultLogAcquisition extends ContributorPage implements Contributo
 								((AllManagementController) controller).getAcquisition();
 								dataBaseManager.deleteRecordAcquisition(record, DataBaseName, defhome);
 
-								try {
-									for (int i = 0; i < recordList.size(); i++) {
-										if (recordList.get(i).getMfn() == mfn)
-											recordList.remove(i);
-									}
-								} catch (Exception e) {
-									// TODO: handle exception
-								}
-
 								showInformationMessage(MessageUtil.unescape(cu.uci.abos.core.l10n.AbosMessages.get().MSG_INF_DELETE_ONE_ITEM));
+								consultLogAcquisitionTable.refresh();
 
 								try {
 									createAcquiditionTable(0, consultLogAcquisitionTable.getPageSize());
-									consultLogAcquisitionTable.getPaginator().goToFirstPage();
-									consultLogAcquisitionTable.refresh();
 
 								} catch (Exception e) {
 									// TODO Auto-generated catch block
@@ -436,7 +417,7 @@ public class ConsultLogAcquisition extends ContributorPage implements Contributo
 		}
 		return list;
 
-	}
+	}   
 
 	@Override
 	public String contributorName() {
@@ -475,8 +456,6 @@ public class ConsultLogAcquisition extends ContributorPage implements Contributo
 			RecordRow recordRow = new RecordRow(iterator);
 			recordList.add(recordRow);
 		}
-
-		consultLogAcquisitionTable.refresh();
 	}
 
 }

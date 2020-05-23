@@ -12,7 +12,6 @@ import org.unesco.jisis.corelib.record.Record;
 
 import cu.uci.abcd.dataprovider.jisis.IJisisDataProvider;
 import cu.uci.abcd.cataloguing.IDataBaseManager;
-import cu.uci.abcd.cataloguing.util.AvailableDatabases;
 import cu.uci.abcd.dataprovider.jisis.exception.JisisDatabaseException;
 import cu.uci.abcd.dataprovider.jisis.impl.search.option.Option;
 import cu.uci.abos.widget.template.util.Util;
@@ -133,15 +132,6 @@ public class DataBaseManager implements IDataBaseManager {
 	public Record getLastRecord(String databaseName)
 			throws JisisDatabaseException {
 		return service.getLastRecord(databaseName, Util.getDefHome());
-	}
-
-	@Override
-	public ArrayList<String> getAvailableDatabases() {
-		// TODO Auto-generated method stub
-		
-		AvailableDatabases list = new AvailableDatabases();
-		
-		return list.getDatabases();
 	}
 
 }

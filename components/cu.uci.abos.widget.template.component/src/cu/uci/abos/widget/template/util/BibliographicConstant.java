@@ -7,7 +7,7 @@ public class BibliographicConstant {
 	 */
 	
 	//dataBases
-    public static final String BIBLIOGRAPHIC_DATABASE = "marc21";
+    public static final String BIBLIOGRAPHIC_DATA_BASE = "marc21";
     public static final String AUTHORITIES_DATABASE = "Autoridades";
     public static final String DEFAULT_WORKSHEET = "Hoja de trabajo por defecto";
     

@@ -31,7 +31,7 @@ public class CatalogQuery extends ContributorPage {
 	 * Created by Basilio Puentes Rodríguez
 	 */
 
-	private String dataBaseName = BibliographicConstant.BIBLIOGRAPHIC_DATABASE;
+	private String dataBaseName = BibliographicConstant.BIBLIOGRAPHIC_DATA_BASE;
 
 	public CatalogQuery() {
 		super();

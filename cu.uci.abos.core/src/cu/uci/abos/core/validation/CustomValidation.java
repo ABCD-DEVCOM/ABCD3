@@ -378,24 +378,6 @@ public class CustomValidation {
 		}
 		ShowControlDecoration(controlDecoration, msg);
 	}
-	
-	
-	public static void ValidateFieldDoubleWithCero(ControlDecoration controlDecoration, int maxLenght) {
-		controlDecoration.hide();
-		Control control = controlDecoration.getControl();
-		String text = ((Text) control).getText();
-		String msg = "";
-		if (!text.isEmpty()) {
-			final String PATTERN_DOUBLE = "([0]|[1-9][0-9]*)|(0\\.([1-9][0-9]*))|(0\\.[1-9])|(0\\.([0-9][1-9]+))|(([1-9][0-9]*)\\.([0-9]|[0-9][0-9]))";
-			Pattern pattern = Pattern.compile(PATTERN_DOUBLE);
-			Matcher matcher = pattern.matcher(text);
-			if (!matcher.matches()) {
-				msg = msg + MessageUtil.unescape(AbosMessages.get().MESSAGE_VALIDATE_FIELD_DOUBLE_WITH_CERO);
-			}
-			msg = ConcatLenght(msg, text, maxLenght);
-		}
-		ShowControlDecoration(controlDecoration, msg);
-	}
 
 	public static void ValidateFieldEMail(ControlDecoration controlDecoration, int maxLenght) {
 		controlDecoration.hide();

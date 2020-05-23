@@ -1,6 +1,5 @@
 package cu.uci.abcd.cataloguing.ui;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class RegisterBibliographicRecord extends ContributorPage{
 	 * Created by Basilio Puentes Rodríguez
 	 */
 	
-	private String marc21DataBase = BibliographicConstant.BIBLIOGRAPHIC_DATABASE;
+	private String marc21DataBase = BibliographicConstant.BIBLIOGRAPHIC_DATA_BASE;
 
 	public RegisterBibliographicRecord() {
 		super();
@@ -98,28 +97,34 @@ public class RegisterBibliographicRecord extends ContributorPage{
 			Shell shell = view.getShell();
 			MessageDialogUtil.openError(shell, "Error", "Problema de Conección con JISIS", null);
 		}
-		
-		String[] values;
 
 		if(dataBases != null){
+			String[] values = new String[dataBases.size()];
+			String priority0 = BibliographicConstant.BIBLIOGRAPHIC_DATA_BASE;
+			String priority1 = BibliographicConstant.AUTHORITIES_DATABASE;
 			
-			ArrayList<String> availableDatabases = ((ProxyController)controller).
-					getDataBaseManagerService().getAvailableDatabases();
-			
-			int availableDatabasesCount = availableDatabases.size();
-			ArrayList<String> inBoth = new ArrayList<String>();
-			
-			for (int i = 0; i < availableDatabasesCount; i++) {
-				String database = availableDatabases.get(i);
-				int pos = dataBases.indexOf(database);
-				if(pos >= 0)
-					inBoth.add(database);
+			int pos0 = -1;
+			int pos1 = -2;
+
+			for (int i = 0; i < dataBases.size(); i++) {
+				values[i] = dataBases.get(i);
+				if(values[i].equals(priority0))
+					pos0 = i;
+				else if(values[i].equals(priority1))
+					pos1 = i;
 			}
 			
-			values = new String[inBoth.size()];
-			values = inBoth.toArray(values);
-		
-			//set values
+			if(pos0 != -1){
+				String aux1 = values[0];
+				values[0] = values[pos0];
+				values[pos0] = aux1;
+			}
+			
+			if(pos1 != -2){
+				String aux2 = values[1];
+				values[1] = values[pos1];
+				values[pos1] = aux2;
+			}
 			drop2.setItems(values);
 			drop2.setVisible(false);
 		}

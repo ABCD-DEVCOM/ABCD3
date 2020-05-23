@@ -48,17 +48,13 @@ import cu.uci.abos.widget.advanced.query.ColorType;
 import cu.uci.abos.widget.advanced.query.QueryComponent;
 import cu.uci.abos.widget.advanced.query.domain.QueryStructure;
 
-/**
- * + RF_OP1 Buscar Registros de Ejemplares por criterios básicos, RF_OP2 Buscar
- * Registros de Ejemplares en otras bases de datos, RF_OP2.1 Realizar
- * metabúsquedas en BD no ISIS, RF_OP3 Buscar por palabras concatenadas con AND,
- * RF_OP4 Buscar por palabras concatenadas con OR, RF_OP5 Limitar búsqueda,
- * RF_OP6 Listar los resultados de la búsqueda de materiales, RF_OP7 Realizar
- * búsqueda externa de registro bibliográfico, RF_OP8.3 Mostrar cantidad de
- * resultados coincidentes
- * 
+/**+
+ * RF_OP1 Buscar Registros de Ejemplares por criterios básicos, RF_OP2 Buscar Registros de Ejemplares en otras bases de datos,
+ * RF_OP2.1 Realizar metabúsquedas en BD no ISIS, RF_OP3 Buscar por palabras concatenadas con AND, 
+ * RF_OP4 Buscar por palabras concatenadas con OR, RF_OP5 Limitar búsqueda, RF_OP6 Listar los resultados de la búsqueda de materiales,
+ * RF_OP7 Realizar búsqueda externa de registro bibliográfico, RF_OP8.3 Mostrar cantidad de resultados coincidentes
  * @author dailien
- * 
+ *
  */
 public class MainContent extends ContributorPage {
 
@@ -208,14 +204,16 @@ public class MainContent extends ContributorPage {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-
+		}	
+		
+		
 		result = parent;
 
 		Composite resize = new Composite(result, 0);
 		resize.setVisible(false);
 		FormDatas.attach(resize).atTop().atRight().withWidth(0).withHeight(Display.getCurrent().getBounds().height - 100);
 
+		
 		search = new Composite(result, SWT.NORMAL);
 		search.setBackground(result.getBackground());
 		search.setLayout(new FormLayout());
@@ -369,7 +367,8 @@ public class MainContent extends ContributorPage {
 			@Override
 			public void keyReleased(KeyEvent event) {
 
-				if (event.keyCode == 13) {
+				if (event.keyCode == 13) {					
+					
 
 					actionBar.setVisible(true);
 					paginado.setVisible(false);
@@ -573,9 +572,9 @@ public class MainContent extends ContributorPage {
 
 		options.addAll(opacFilterMenu.getFilterOptions());
 		allLibrary.addAll(opacFilterMenu.getSelectedLibraries());
-
-		// Fixing query
-		term = ((ConsultMaterialsController) controller).QueryFixer(term);
+		
+		//Fixing query
+		term = ((ConsultMaterialsController)controller).QueryFixer(term);
 
 		cleanNotDefHomeDataBase(allLibrary);
 
@@ -702,7 +701,7 @@ public class MainContent extends ContributorPage {
 			if (!txtfield1.getText().equals("") && stringEmpty(txtfield1.getText())) {
 
 				term = putQuotes(txtfield1.getText());
-
+				
 				filter = getAdvanceFilter(field1.getSelectionIndex());
 
 				for (int i = 0; i < filter.size(); i++) {
@@ -773,7 +772,7 @@ public class MainContent extends ContributorPage {
 							else
 								options.add(new OptionNOT("", ""));
 						}
-
+   
 						filterGroup++;
 
 						term = putQuotes(plusTemp.get(i).getTerm().getText());
@@ -1271,9 +1270,11 @@ public class MainContent extends ContributorPage {
 
 		// ** Standard marc21**\\
 		/*
-		 * 1 -- Title 245^a (Revista 222^a) 2 -- Author 100^a 110^a 111^a 3 --
-		 * Materia 600 610 611 630 650 651 653 655 4 -- Resume 520^a 5 --
-		 * Classification Number 084
+		 * 1 -- Title 245^a (Revista 222^a)
+		 * 2 -- Author 100^a 110^a 111^a 
+		 * 3 -- Materia 600 610 611 630 650 651 653 655 
+		 * 4 -- Resume 520^a 
+		 * 5 -- Classification Number 084
 		 */
 
 		List<String> temp = new ArrayList<String>();
@@ -1302,7 +1303,7 @@ public class MainContent extends ContributorPage {
 			temp.add("655");
 			return temp;
 		case 5:
-			temp.add("84");
+			temp.add("84");			
 		default:
 			temp.add("520");
 			return temp;
@@ -1320,7 +1321,7 @@ public class MainContent extends ContributorPage {
 		 * -- Editorial 260^b 8 -- Edición 250^a 9 -- Lugar de publicación 260^a
 		 * 10 -- Título de la Serie 440^a 11 -- Classification Number 084
 		 */
-///asdasd
+
 		List<String> temp = new ArrayList<String>();
 
 		switch (selection) {
@@ -1358,14 +1359,14 @@ public class MainContent extends ContributorPage {
 		case 7:
 			temp.add("260");
 			return temp;
-		case 8:
+		case 8:    
 			temp.add("250");
 			return temp;
 		case 9:
 			temp.add("260");
-			return temp;
-		case 12:
-			temp.add("84");
+			return temp;		
+		case 12:	  	
+			temp.add("84");	
 		default:
 			temp.add("440");
 			return temp;
@@ -1443,9 +1444,10 @@ public class MainContent extends ContributorPage {
 	}
 
 	@Override
-	public void l10n() {
-
+	public void l10n() {		
+		
 		advanceSearchBtn.setText(AbosMessages.get().BUTTON_ADVANCE_SEARCH);
+
 
 		if (filterOne.getSelectionIndex() != -1)
 			filterOneSelection = filterOne.getSelectionIndex();
@@ -1461,7 +1463,7 @@ public class MainContent extends ContributorPage {
 			values = new String[] { MessageUtil.unescape(AbosMessages.get().COMBO_FIRST_FILTER_TITLE), MessageUtil.unescape(AbosMessages.get().COMBO_FIRST_FILTER_AUTHOR), MessageUtil.unescape(AbosMessages.get().COMBO_FIRST_FILTER_MATERIA),
 					MessageUtil.unescape(AbosMessages.get().COMBO_FIRST_FILTER_ISBN), MessageUtil.unescape(AbosMessages.get().COMBO_FIRST_FILTER_ISSN), MessageUtil.unescape(AbosMessages.get().COMBO_ADVANCE_FILTER_SIG_TOP), MessageUtil.unescape(AbosMessages.get().COMBO_ADVANCE_FILTER_INST_NAME),
 					MessageUtil.unescape(AbosMessages.get().COMBO_ADVANCE_FILTER_EDITORIAL), MessageUtil.unescape(AbosMessages.get().COMBO_ADVANCE_FILTER_EDITION), MessageUtil.unescape(AbosMessages.get().COMBO_ADVANCE_FILTER_PUB_PLACE),
-					MessageUtil.unescape(AbosMessages.get().COMBO_ADVANCE_FILTER_SERIE_TITLE), (MessageUtil.unescape(AbosMessages.get().COMBO_FIRST_FILTER_CLASSIFICATION_NUMBER)) };
+					MessageUtil.unescape(AbosMessages.get().COMBO_ADVANCE_FILTER_SERIE_TITLE), (MessageUtil.unescape(AbosMessages.get().COMBO_FIRST_FILTER_CLASSIFICATION_NUMBER))};
 
 			field1.select(0);
 			field2.select(0);
@@ -1524,7 +1526,6 @@ public class MainContent extends ContributorPage {
 	public void setFindByDate(boolean findByDate) {
 		this.findByDate = findByDate;
 	}
-
 	public boolean getFindByDate() {
 		return findByDate;
 	}
@@ -1539,13 +1540,13 @@ public class MainContent extends ContributorPage {
 				librarys.get(i--);
 
 	}
-
-	private String putQuotes(String text) {
-
-		if (text.split(" ").length > 1)
-			if (!(text.substring(0, 1).equals("\"")))
-				text = "\"" + text + "\"";
-
+	   
+	private String putQuotes(String text){
+		   
+		if(text.split(" ").length > 1)
+			if(!(text.substring(0, 1).equals("\"")))
+					text = "\"" + text + "\"";			
+		
 		return text;
 	}
 }

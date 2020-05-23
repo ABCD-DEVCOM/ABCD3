@@ -36,7 +36,7 @@ public class EventSaveRecord implements Listener {
 	private ProxyController controller;
 	private String dataBaseName;
 	private TemplateCompound component;
-	private String exemplaryDataBase = BibliographicConstant.BIBLIOGRAPHIC_DATABASE;
+	private String exemplaryDataBase = BibliographicConstant.BIBLIOGRAPHIC_DATA_BASE;
 	private Record record;
 	private boolean register;
 	private Boolean successfull;

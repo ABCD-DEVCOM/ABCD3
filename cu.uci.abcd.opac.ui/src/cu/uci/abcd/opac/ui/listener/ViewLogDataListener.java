@@ -37,10 +37,8 @@ public class ViewLogDataListener implements Listener {
 			try {
 
 				viewLog.title = record.getTitle();
-				if (viewLog.title.equals("")) {
-					Field titleField = (Field) record.getRecord().getField(245);
-					viewLog.title = titleField.getSubfield("a");
-				}
+				Field titleField = (Field) record.getRecord().getField(245);
+				viewLog.title = titleField.getSubfield("a");
 
 			} catch (Exception e) {
 				e.printStackTrace();

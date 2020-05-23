@@ -128,27 +128,7 @@ public class RecordIsis {
 		try {
 
 			publication = record.getField(260).getSubfield(0, "^a");
-
-			if (publication == null)
-				publication = "";
-			else if (publication.equals("") || publication.equals("null"))
-				publication = "";
-
-			String subField = record.getField(260).getSubfield(0, "^b");
-
-			if (subField != null && !subField.equals("") && !subField.equals("null"))
-				if (publication.equals("") || publication.equals("null"))
-					publication += subField;
-				else
-					publication += ", " + subField;
-
-			subField = record.getField(260).getSubfield(0, "^c");
-
-			if (subField != null && !subField.equals("") && !subField.equals("null"))
-				if (publication.equals("") || publication.equals("null"))
-					publication += subField;
-				else
-					publication += ", " + subField;
+			publication += ", " + record.getField(260).getSubfield(0, "^b");
 
 		} catch (Exception e) {
 			e.printStackTrace();
