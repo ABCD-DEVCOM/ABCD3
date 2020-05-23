@@ -3,6 +3,7 @@ package cu.uci.abcd.cataloguing.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.unesco.jisis.corelib.exceptions.DbException;
 import org.unesco.jisis.corelib.record.IRecord;
 import org.unesco.jisis.corelib.record.Record;
 
@@ -69,11 +70,20 @@ public class AuthoritiesRecord implements IAuthoritiesRecord {
 		Boolean successfull = false;
 		QuickSort sort = new QuickSort();
 		sort.quickSort(0, children.size()-1, children);
+		
+		String userList = null;
+		try {
+			userList = record.getField(999).getStringFieldValue();
+		} catch (DbException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		JisisRegistration jisis = new JisisRegistration(dataBaseName, true, userList);
 
 		record.removeEmptyFields();
 		record.clear();
-
-		JisisRegistration jisis = new JisisRegistration(dataBaseName);
+		
 		boolean save = jisis.save(children, record);
 
 		if(save){

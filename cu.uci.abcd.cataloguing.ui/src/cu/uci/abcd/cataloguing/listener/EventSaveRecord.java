@@ -107,7 +107,7 @@ public class EventSaveRecord implements Listener {
 					try{
 						Record currentRecord = null;
 
-						if(register || !dataBaseName.equals(exemplaryDataBase))
+						if(register)
 							currentRecord = dataBaseManager.getLastRecord(dataBaseName);
 						else{
 							Field field = (Field) record.getField(BibliographicConstant.CONTROL_NUMBER);

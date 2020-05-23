@@ -2,7 +2,6 @@ package cu.uci.abcd.dataprovider.jisis.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -12,13 +11,9 @@ import org.unesco.jisis.corelib.common.FieldDefinitionTable;
 import org.unesco.jisis.corelib.common.FieldSelectionTable;
 import org.unesco.jisis.corelib.common.FormattedRecord;
 import org.unesco.jisis.corelib.common.Global;
-import org.unesco.jisis.corelib.common.JisisParams;
-import org.unesco.jisis.corelib.common.JisisParamsImpl;
-import org.unesco.jisis.corelib.common.NamedList;
 import org.unesco.jisis.corelib.common.PrintFormat;
 import org.unesco.jisis.corelib.common.WorksheetDef;
 import org.unesco.jisis.corelib.exceptions.DbException;
-import org.unesco.jisis.corelib.index.DictionaryTerm;
 import org.unesco.jisis.corelib.record.IRecord;
 import org.unesco.jisis.corelib.record.Record;
 
@@ -203,8 +198,8 @@ public class JisisDataProviderImpl implements IJisisDataProvider {
 		long[] mfn = null;
 		String field = "";
 		String term = "";
-		String consulta = "";			
-		
+		String consulta = "";
+              
 		for (int i = 0; i < options.size(); i++) {
 			if ((null != options.get(i).getGroup()) && ((0 == i) || (options.get(i).getGroup() != options.get(i - 1).getGroup())))
 				consulta += "(";

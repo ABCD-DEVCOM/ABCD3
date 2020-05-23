@@ -77,7 +77,8 @@ public class LoanObjectCreation implements ILoanObjectCreation {
 	@Override
 	public List<Room> getRooms() {
 
-		return (List<Room>)roomDAO.findAll(CataloguingSpecification.findAllRoom_Library(Util.getLibrary()));
+		return (List<Room>)roomDAO.findAll(CataloguingSpecification.
+				findAllRoom_Library(Util.getLibrary()));
 	}
 
 	@Override

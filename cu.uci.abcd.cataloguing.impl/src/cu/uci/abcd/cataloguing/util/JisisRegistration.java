@@ -13,7 +13,6 @@ import org.unesco.jisis.corelib.record.IRecord;
 import org.unesco.jisis.corelib.record.ISubfield;
 import org.unesco.jisis.corelib.record.StringOccurrence;
 import org.unesco.jisis.corelib.record.Subfield;
-
 import cu.uci.abos.core.util.RetroalimentationUtils;
 import cu.uci.abos.widget.repeatable.field.util.FieldStructure;
 import cu.uci.abos.widget.repeatable.field.util.MyDate;
@@ -21,6 +20,7 @@ import cu.uci.abos.widget.repeatable.field.util.MyDateTime;
 import cu.uci.abos.widget.repeatable.field.util.MyFieldUpLoad;
 import cu.uci.abos.widget.repeatable.field.util.MyTime;
 import cu.uci.abos.widget.repeatable.field.util.SubFieldStructure;
+import cu.uci.abos.widget.template.util.Util;
 
 public class JisisRegistration {
 
@@ -30,9 +30,17 @@ public class JisisRegistration {
 
 	private String databaseName;
 	private byte[] byteArray = null;
+	private boolean update = false;
+	private String userList;
 	
 	public JisisRegistration(String databaseName){
 		this.databaseName = databaseName;
+	}
+	
+	public JisisRegistration(String databaseName, boolean update, String userList){
+		this.databaseName = databaseName;
+		this.update = true;
+		this.userList = userList;
 	}
 
 	public boolean save(ArrayList<FieldStructure> children, IRecord record){
@@ -222,9 +230,23 @@ public class JisisRegistration {
 					}
 				}
 			}
-			if(fieldNotEmpty > 0)
+			if(fieldNotEmpty > 0){
 				result = true;
-
+				
+				//user of the person who save the record
+				IField field = null;
+				field = new Field(999 , Global.FIELD_TYPE_ALPHANUMERIC);
+			
+				String userName = Util.getUser().getUsername();
+				
+				if(update){
+					if(!userList.equals(""))
+						userName = userList + ", "+userName;
+				}
+				field.setFieldValue(userName);
+				record.addField(field);
+			}
+				
 		}catch (DbException e){
 			RetroalimentationUtils.showErrorShellMessage(
 					"Problema de conección con JISIS");

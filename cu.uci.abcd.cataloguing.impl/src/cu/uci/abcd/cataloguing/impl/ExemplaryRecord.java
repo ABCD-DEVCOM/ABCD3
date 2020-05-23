@@ -91,8 +91,16 @@ public class ExemplaryRecord implements IExemplaryRecord{
 		
 		QuickSort sort = new QuickSort();
 		sort.quickSort(0, children.size()-1, children);
+		
+		String userList = null;
+		try {
+			userList = record.getField(999).getStringFieldValue();
+		} catch (DbException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
-		JisisRegistration jisis = new JisisRegistration(dataBaseName);
+		JisisRegistration jisis = new JisisRegistration(dataBaseName, true, userList);
 
 		record.removeEmptyFields();
 		record.clear();
