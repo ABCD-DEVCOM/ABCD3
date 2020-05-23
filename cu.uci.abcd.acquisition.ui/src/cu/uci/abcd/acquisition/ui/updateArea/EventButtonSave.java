@@ -312,24 +312,22 @@ public class EventButtonSave implements Listener {
 						record1.getField(100).setFieldValue("^a" + lastRecord1.getField(3).getFieldValue());
 
 						String tempRecordType = (String) (lastRecord1.getField(6).getFieldValue());
-						record1.getField(3006).setFieldValue(tempRecordType);
-						
 
-						//tempRecordType = (String) tempRecordType.subSequence(0, tempRecordType.length() - 1);
-						/*
+						tempRecordType = (String) tempRecordType.subSequence(0, tempRecordType.length() - 1);
+
 						if (tempRecordType.equals("Tesis"))
 							record1.getField(3006).setFieldValue("Tesis");
 						else
 							record1.getField(3006).setFieldValue(returnRecordTypeStandar(tempRecordType));
-						*/
+
 						((AllManagementController) controller).getAcquisition().registerAcquisition(record1, dataBaseNameCataloguin, library.getIsisDefHome());
 
-						/***/   
+						/***/
 
 						try {
 
 							LoanObject loanObject = new LoanObject();
-							loanObject.setInventorynumber("FillInvertaryNumber");
+							loanObject.setInventorynumber("FillInInvenNumber");
 							loanObject.setRoom(findRoom(lastRecord1));
 
 							java.util.Date date = new java.util.Date();
@@ -420,32 +418,9 @@ public class EventButtonSave implements Listener {
 							}
 							
 							
-
-							try {
-								// Coin
-								Field field = (Field) lastRecord1.getField(22);
-								   
-								List<Nomenclator> coints = ((AllManagementController) controller).getSuggestion().findAllNomenclators(library.getLibraryID(), Nomenclator.COIN_TYPE);
-
-								Nomenclator cointType = null;
-
-								for (int i = 0; i < coints.size(); i++) 
-									if(coints.get(i).getNomenclatorDescription().equals(field.getFieldValue()))
-										cointType = coints.get(i);									
-								
-								
-								
-								loanObject.setAcquisitionCoinType(cointType);
-
-
-							} catch (Exception e) {
-								// TODO: handle exception
-							}
-
-							
-     
+   
 							for (int i = 0; i < count; i++) {
-								((AllManagementController) controller).getAcquisitionLoanObjectService().addLoanObject(loanObject);
+								//((AllManagementController) controller).getAcquisitionLoanObjectService().addLoanObject(loanObject);
 							}
 
 						} catch (Exception e) {

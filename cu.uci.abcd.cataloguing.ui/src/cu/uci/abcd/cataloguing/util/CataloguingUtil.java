@@ -10,5 +10,4 @@ public class CataloguingUtil {
 	public static final String CATALOG_QUERY_CONTRIBUTION_ID = "catalogQueryID";
 	public static final String ADVANCED_QUERY_CONTRIBUTION_ID = "advanceQueryID";
 	public static final String AUTHORITIES_QUERY_CONTRIBUTION_ID = "authoritiesQueryID";
-
 }

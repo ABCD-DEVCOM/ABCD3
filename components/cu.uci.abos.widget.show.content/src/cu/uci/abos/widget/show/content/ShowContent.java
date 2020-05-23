@@ -48,18 +48,12 @@ public class ShowContent extends Composite {
 
 	private List<Image> imageBtnsList;
 	private List<String> textBtnsList;
-	
-	private Image imageIcon;
 
 	private int until;
 	private int to;
 
 	private Button btn;
 	private Button lastButton;
-	
-
-	private String tittle;
-	private String author;
 
 	Label bookAutorContent;
 
@@ -122,46 +116,12 @@ public class ShowContent extends Composite {
 		FormDatas.attach(number).atTop(0).atLeft(10);
 
 		if (dataBaseName == Constants.MARC21_DATABASE) {
-			
-			try {
-
-				switch (record.getRecordType()) {
-				case "Libro":
-					imageIcon = new Image(content.getDisplay(), RWT.getResourceManager().getRegisteredContent("opac-book"));
-					break;
-				case "Tesis":
-					imageIcon = new Image(content.getDisplay(), RWT.getResourceManager().getRegisteredContent("opac-tesis"));
-					break;
-				case "Revista":
-					imageIcon = new Image(content.getDisplay(), RWT.getResourceManager().getRegisteredContent("opac-newspaper"));
-					break;
-				case "Obra de referencia":
-					imageIcon = new Image(content.getDisplay(), RWT.getResourceManager().getRegisteredContent("opac-reference-works"));
-					break;
-				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			try {
-				if (imageIcon != null) {
-					Label registerIcon = new Label(content, SWT.NORMAL);
-					registerIcon.setData(RWT.MARKUP_ENABLED, Boolean.TRUE);
-					registerIcon.setImage(imageIcon);
-					FormDatas.attach(registerIcon).atTopTo(number, 5).atLeft(0);
-				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
 
 			bookNameLb = new Label(content, SWT.NORMAL);
 			bookNameLb.setText(MessageUtil.unescape(AbosMessages.get().COMBO_FIRST_FILTER_TITLE+ ":"));
 			
 			bookNameLb.setFont(new Font(content.getDisplay(), "Arial", 11, SWT.BOLD));
-			FormDatas.attach(bookNameLb).atTop(1).atLeftTo(number, 15);
+			FormDatas.attach(bookNameLb).atTop(1).atLeftTo(number, 10);
 
 			bookNameLk = new Link(content, SWT.WRAP);
 			bookNameLk.setText(record.getTitle());
@@ -173,51 +133,26 @@ public class ShowContent extends Composite {
 			bookAutorLb.setFont(new Font(content.getDisplay(), "Arial", 11, SWT.BOLD));
 
 			if (record.getTitle().equals(""))
-				FormDatas.attach(bookAutorLb).atTopTo(bookNameLb).atLeftTo(number, 15);
+				FormDatas.attach(bookAutorLb).atTopTo(bookNameLb).atLeftTo(number, 10);
 			else
-				FormDatas.attach(bookAutorLb).atTopTo(bookNameLk).atLeftTo(number, 15);
+				FormDatas.attach(bookAutorLb).atTopTo(bookNameLk).atLeftTo(number, 10);
 
 			bookAutorContent = new Label(content, SWT.NORMAL);
 
 			try {
 
-				if (record.getAuthor() != null) {
-					if (record.getAuthor().length() > 60) {
-						author = record.getAuthor().substring(0, 60);
-						try {
-
-							for (int i = author.length() - 1; author.length() > 1; i--)
-								if (author.substring(i) != "" || author.substring(i) != " ") {
-									author = author + "(...)";
-									break;
-								}
-
-						} catch (Exception e) {
-						}
-					} else
-						author = record.getAuthor();
-				} else {
-					author = "";
-				}
-
-			} catch (Exception e) {
-				author = "";
-			}
-
-			try {
-
-				bookAutorContent.setText(author);
+				bookAutorContent.setText(record.getAuthor().get(0));
 
 				bookAutorContent.setFont(new Font(content.getDisplay(), "Arial", 12, SWT.BOLD));
 
-				if (record.getAuthor().equals(""))
-					FormDatas.attach(bookAutorContent).atTopTo(bookNameLb).atLeftTo(bookAutorLb, 5);
+				if (record.getAuthor().get(0).equals(""))
+					FormDatas.attach(bookAutorContent).atTopTo(bookNameLb, -3).atLeftTo(bookAutorLb, 5);
 				else
-					FormDatas.attach(bookAutorContent).atTopTo(bookNameLk).atLeftTo(bookAutorLb, 5);
+					FormDatas.attach(bookAutorContent).atTopTo(bookNameLk, -3).atLeftTo(bookAutorLb, 5);
 
 			} catch (Exception e) {
+				e.printStackTrace();
 			}
-
 
 			if (record.getTitle().equals(null) || record.getTitle().equals(""))
 				FormDatas.attach(bookAutorContent).atTopTo(bookNameLb).atLeftTo(bookAutorLb, 5);
@@ -226,7 +161,7 @@ public class ShowContent extends Composite {
 			publicationLb = new Label(content, SWT.NORMAL);
 			publicationLb.setText(MessageUtil.unescape(AbosMessages.get().LABEL_PUBLICATION_PLACE + ":"));
 			publicationLb.setFont(new Font(content.getDisplay(), "Arial", 11, SWT.BOLD));
-			FormDatas.attach(publicationLb).atTopTo(bookAutorLb).atLeftTo(number, 15);
+			FormDatas.attach(publicationLb).atTopTo(bookAutorLb).atLeftTo(number, 10);
 
 			publicationContent = new Label(content, SWT.NORMAL);
 			publicationContent.setText(record.getPublication());
@@ -236,7 +171,7 @@ public class ShowContent extends Composite {
 			publicationDateLb = new Label(content, SWT.NORMAL);
 			publicationDateLb.setText(MessageUtil.unescape(AbosMessages.get().LABEL_PUBLICATION_DATE + ":"));
 			publicationDateLb.setFont(new Font(content.getDisplay(), "Arial", 11, SWT.BOLD));
-			FormDatas.attach(publicationDateLb).atTopTo(publicationLb).atLeftTo(number, 15);
+			FormDatas.attach(publicationDateLb).atTopTo(publicationLb).atLeftTo(number, 10);
     
 			publicationDateContent = new Label(content, SWT.NORMAL);
 			publicationDateContent.setText(String.valueOf(record.getPublicationDate()));
@@ -249,46 +184,12 @@ public class ShowContent extends Composite {
 			bookAutorLb.setText(MessageUtil.unescape(AbosMessages.get().COMBO_FIRST_FILTER_AUTHOR + ":"));
 			bookAutorLb.setFont(new Font(content.getDisplay(), "Arial", 11, SWT.BOLD));
     
-			FormDatas.attach(bookAutorLb).atTop(1).atLeftTo(number, 15);
+			FormDatas.attach(bookAutorLb).atTop(1).atLeftTo(number, 10);
     
 			bookAutorContent = new Label(content, SWT.NORMAL);
 
-			try {
-
-				if (record.getAuthor() != null) {
-					if (record.getAuthor().length() > 60) {
-						author = record.getAuthor().substring(0, 60);
-						try {
-
-							for (int i = author.length() - 1; author.length() > 1; i--)
-								if (author.substring(i) != "" || author.substring(i) != " ") {
-									author = author + "(...)";
-									break;
-								}
-
-						} catch (Exception e) {
-						}
-					} else
-						author = record.getAuthor();
-				}
-
-			} catch (Exception e) {
-				author = "";
-			}
-
-			try {
-
-				bookAutorContent.setText(author);
-
-				bookAutorContent.setFont(new Font(content.getDisplay(), "Arial", 12, SWT.BOLD));
-
-				if (record.getAuthor().equals(""))
-					FormDatas.attach(bookAutorContent).atTopTo(bookNameLb).atLeftTo(bookAutorLb, 5);
-				else
-					FormDatas.attach(bookAutorContent).atTopTo(bookNameLk).atLeftTo(bookAutorLb, 5);
-
-			} catch (Exception e) {
-			}
+			if (!record.getAuthor().isEmpty())
+				bookAutorContent.setText(record.getAuthor().get(0));
 
 			FormDatas.attach(bookAutorContent).atTop(1).atLeftTo(bookAutorLb, 5);
 
@@ -301,16 +202,16 @@ public class ShowContent extends Composite {
 			actionsLb.setFont(new Font(content.getDisplay(), "Arial", 11, SWT.BOLD));
 			
 			if (dataBaseName == Constants.MARC21_DATABASE)
-				FormDatas.attach(actionsLb).atTopTo(publicationDateContent).atLeftTo(number, 15);	
+				FormDatas.attach(actionsLb).atTopTo(publicationDateContent).atLeftTo(number, 10);	
 			else				
-				FormDatas.attach(actionsLb).atTopTo(bookAutorContent).atLeftTo(number, 15);
+				FormDatas.attach(actionsLb).atTopTo(bookAutorContent).atLeftTo(number, 10);
 
 
 			btn = new Button(content, 0);
 			btn.setImage(imageBtnsList.get(0));
 			btn.setText(textBtnsList.get(0));
 			btn.setData(RWT.CUSTOM_VARIANT, "opacSearchBtn");
-			FormDatas.attach(btn).atTopTo(actionsLb, -5).atLeftTo(number, 15);
+			FormDatas.attach(btn).atTopTo(actionsLb, -5).atLeftTo(number, 10);
 
 			btn.addSelectionListener(new SelectionListener() {
 				private static final long serialVersionUID = 1L;

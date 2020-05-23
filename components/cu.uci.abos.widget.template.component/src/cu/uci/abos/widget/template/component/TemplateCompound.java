@@ -133,7 +133,7 @@ public class TemplateCompound extends Composite {
 		String workSheetName = null;
 
 		try {
-			if(dataBaseName.equals(BibliographicConstant.BIBLIOGRAPHIC_DATABASE))
+			if(dataBaseName.equals(BibliographicConstant.BIBLIOGRAPHIC_DATA_BASE))
 				registerType = record.getField(BibliographicConstant.RECORD_TYPE).getStringFieldValue();
 
 			initialize(dataBaseName, "Editar registro en ");
@@ -210,7 +210,7 @@ public class TemplateCompound extends Composite {
 
 		view.getShell().layout(true);
 
-		if(dataBaseName.equals(BibliographicConstant.BIBLIOGRAPHIC_DATABASE)){
+		if(dataBaseName.equals(BibliographicConstant.BIBLIOGRAPHIC_DATA_BASE)){
 			FieldStructure field8 = null;
 			int count = notNull.size();
 			for (int i = 0; i < count; i++) {
@@ -732,13 +732,13 @@ public class TemplateCompound extends Composite {
 		Record lastRecord = service.getLastRecord(dataBaseName, Util.getDefHome());
 
 		if (lastRecord != null){
-			if(dataBaseName.equals(BibliographicConstant.BIBLIOGRAPHIC_DATABASE))
+			if(dataBaseName.equals(BibliographicConstant.BIBLIOGRAPHIC_DATA_BASE))
 				controlNumber = "C"+String.valueOf(lastRecord.getMfn() + 1);
 			else
 				controlNumber = "A"+ String.valueOf(lastRecord.getMfn() + 1);
 		}		
 		else{
-			if(dataBaseName.equals(BibliographicConstant.BIBLIOGRAPHIC_DATABASE))
+			if(dataBaseName.equals(BibliographicConstant.BIBLIOGRAPHIC_DATA_BASE))
 				controlNumber = "C"+String.valueOf(1);
 			else
 				controlNumber = "A"+ String.valueOf(1);

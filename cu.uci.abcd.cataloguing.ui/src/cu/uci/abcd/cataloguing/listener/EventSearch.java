@@ -39,7 +39,7 @@ public class EventSearch implements Listener {
 		superArg0.getShell().update();
 		
 		//create new view
-		if(dataBaseName.equals(BibliographicConstant.BIBLIOGRAPHIC_DATABASE)){
+		if(dataBaseName.equals(BibliographicConstant.BIBLIOGRAPHIC_DATA_BASE)){
 			CatalogQuery catalogQuery = new CatalogQuery();
 			catalogQuery.setController(controller);
 			catalogQuery.createUIControl(superArg0);

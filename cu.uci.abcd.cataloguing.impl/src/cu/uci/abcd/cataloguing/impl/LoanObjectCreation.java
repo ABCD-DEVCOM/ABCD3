@@ -28,7 +28,6 @@ import cu.uci.abcd.domain.common.LoanObject;
 import cu.uci.abcd.domain.common.Nomenclator;
 import cu.uci.abcd.domain.management.library.Provider;
 import cu.uci.abcd.domain.management.library.Room;
-import cu.uci.abos.widget.template.util.Util;
 
 public class LoanObjectCreation implements ILoanObjectCreation {
 
@@ -37,7 +36,7 @@ public class LoanObjectCreation implements ILoanObjectCreation {
 	 */
 
 	private LoanObjectDAO loanObjectDAO;
-	private Shell shell;
+	private Shell sell;
 	private RoomDAO roomDAO;
 	private NomenclatorDAO nomenclatorDAO;
 	private ProviderDAO providerDAO;
@@ -77,7 +76,7 @@ public class LoanObjectCreation implements ILoanObjectCreation {
 	@Override
 	public List<Room> getRooms() {
 
-		return (List<Room>)roomDAO.findAll(CataloguingSpecification.findAllRoom_Library(Util.getLibrary()));
+		return (List<Room>)roomDAO.findAll();
 	}
 
 	@Override
@@ -96,8 +95,7 @@ public class LoanObjectCreation implements ILoanObjectCreation {
 	@Override
 	public List<Provider> getProviders() {
 
-		return (List<Provider>) providerDAO.findAll(CataloguingSpecification.
-				findAllProvider_Library(Util.getLibrary()));
+		return (List<Provider>) providerDAO.findAll();
 	}
 
 	@Override
@@ -149,11 +147,11 @@ public class LoanObjectCreation implements ILoanObjectCreation {
 	}
 
 	public Shell getSell() {
-		return shell;
+		return sell;
 	}
 
 	public void setSell(Shell sell) {
-		this.shell = sell;
+		this.sell = sell;
 	}
 
 	@Override
@@ -163,14 +161,14 @@ public class LoanObjectCreation implements ILoanObjectCreation {
 
 	@Override
 	public Page<LoanObject> findAllByPrecataloguing(int page, int size, int direction, String orderByString) {
-		return loanObjectDAO.findAll(CataloguingSpecification.searchLoanObjectByPrecataloguedSituation_Library(Util.getLibrary()),
+		return loanObjectDAO.findAll(CataloguingSpecification.searchLoanObjectByPrecataloguedSituation(),
 				PageSpecification.getPage(page, size, direction, orderByString));
 	}
 
 	@Override
 	public Page<LoanObject> findAllByControlNumber(String controlNumber, int page, int size, int direction, String orderByString) {
 
-		return loanObjectDAO.findAll(CataloguingSpecification.searchLoanObjectByControlNumber_Library(controlNumber, Util.getLibrary()),
+		return loanObjectDAO.findAll(CataloguingSpecification.searchLoanObjectByControlNumber(controlNumber),
 				PageSpecification.getPage(page, size, direction, orderByString));
 	}
 

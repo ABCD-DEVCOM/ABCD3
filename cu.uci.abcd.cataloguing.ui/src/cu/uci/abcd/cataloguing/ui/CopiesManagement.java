@@ -124,8 +124,7 @@ public class CopiesManagement extends ContributorPage {
 
 		Label up = new Label(father, 0);
 
-		String title = cu.uci.abos.l10n.cataloguing.AbosMessages.get().LABEL_COPIES_FOR + loanObject.getTitle() + 
-				cu.uci.abos.l10n.cataloguing.AbosMessages.get().LABEL_RECORD_NUMBER + String.valueOf(mfn) + ")";
+		String title = cu.uci.abos.l10n.cataloguing.AbosMessages.get().LABEL_COPIES_FOR + loanObject.getTitle() + cu.uci.abos.l10n.cataloguing.AbosMessages.get().LABEL_RECORD_NUMBER + String.valueOf(mfn) + ")";
 
 		int size = title.length();
 
@@ -498,8 +497,7 @@ public class CopiesManagement extends ContributorPage {
 		buttonSave.pack();
 		loanObjectField.setButtonSave(buttonSave);
 
-		EventLoanObjectCreation event = new EventLoanObjectCreation(grid, loanObjectField, loanObjectService, loanObject, 
-				acquisitionTypeFolder, buttonSave, contentPage, bar, expandItem, validator);
+		EventLoanObjectCreation event = new EventLoanObjectCreation(grid, loanObjectField, loanObjectService, loanObject, acquisitionTypeFolder, buttonSave, contentPage, bar, expandItem, validator);
 
 		event.setAcquisitionCoinType(acquisitionCoinTypeNomenclator);
 		event.setAcquisitionType(acquisitionType);
@@ -796,8 +794,7 @@ public class CopiesManagement extends ContributorPage {
 
 			loanObjectField.setButtonSave(newButton);
 
-			EventLoanObjectCreation event = new EventLoanObjectCreation(grid, loanObjectField, loanObjectCreation, loanObject, 
-					acquisitionTypeFolder, loanObjectField.getButtonSave(), contentPage, bar, expandItem, validator);
+			EventLoanObjectCreation event = new EventLoanObjectCreation(grid, loanObjectField, loanObjectCreation, loanObject, acquisitionTypeFolder, loanObjectField.getButtonSave(), contentPage, bar, expandItem, validator);
 
 			event.setIsert(false);
 			event.setAcquisitionCoinType(acquisitionCoinTypes);
@@ -828,9 +825,7 @@ public class CopiesManagement extends ContributorPage {
 
 			if (!button.getText().equals(cu.uci.abos.l10n.cataloguing.AbosMessages.get().BUTTON_SAVE_CHANGES)) {
 
-				MessageDialogUtil.openQuestion(contentPage.getShell(), cu.uci.abos.l10n.cataloguing.AbosMessages.get()
-						.MESSAGE_QUESTION, MessageUtil.unescape(cu.uci.abos.l10n.cataloguing.AbosMessages.get().
-								MESSAGE_DO_YOU_WANT_TO_REMOVE_THE_ELEMENT), new DialogCallback() {
+				MessageDialogUtil.openQuestion(contentPage.getShell(), cu.uci.abos.l10n.cataloguing.AbosMessages.get().MESSAGE_QUESTION, MessageUtil.unescape(cu.uci.abos.l10n.cataloguing.AbosMessages.get().MESSAGE_DO_YOU_WANT_TO_REMOVE_THE_ELEMENT), new DialogCallback() {
 					/**
 					 * Created by Basilio Puentes Rodríguez
 					 */
@@ -882,8 +877,7 @@ public class CopiesManagement extends ContributorPage {
 					}
 				});
 			} else
-				RetroalimentationUtils.showErrorShellMessage(MessageUtil.unescape(cu.uci.abos.l10n.cataloguing.AbosMessages.get()
-						.MESSAGE_CANT_NOT_REMOVE_IF_EDITING));
+				RetroalimentationUtils.showErrorShellMessage(MessageUtil.unescape(cu.uci.abos.l10n.cataloguing.AbosMessages.get().MESSAGE_CANT_NOT_REMOVE_IF_EDITING));
 		}
 	}
 

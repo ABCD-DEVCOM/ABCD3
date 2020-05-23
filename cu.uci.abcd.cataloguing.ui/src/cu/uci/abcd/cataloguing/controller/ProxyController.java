@@ -57,5 +57,5 @@ public class ProxyController implements ViewController {
 	public void bindAuthoritiesRecord(IAuthoritiesRecord authoritiesRecord, Map<?, ?> properties) {
 		this.setAuthoritiesRecordService(authoritiesRecord);
 	}
-	
+
 }

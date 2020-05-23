@@ -5,6 +5,7 @@ import java.util.List;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolItem;
 import org.unesco.jisis.corelib.common.FormattedRecord;
@@ -14,7 +15,6 @@ import cu.uci.abcd.cataloguing.ui.AllRecordsView;
 import cu.uci.abcd.dataprovider.jisis.IJisisDataProvider;
 import cu.uci.abcd.dataprovider.jisis.exception.JisisDatabaseException;
 import cu.uci.abos.core.util.RetroalimentationUtils;
-import cu.uci.abos.l10n.cataloguing.AbosMessages;
 import cu.uci.abos.widget.template.util.Util;
 
 public class EventChangeMFN implements KeyListener{
@@ -27,6 +27,7 @@ public class EventChangeMFN implements KeyListener{
 	private String dataBaseName;
 	private IJisisDataProvider service;
 	private Text mfnText;
+	private Combo combo;
 	private long firstMFN;
 	private long lastMFN;
 	private long currentMFN;
@@ -37,12 +38,13 @@ public class EventChangeMFN implements KeyListener{
 	private AllRecordsView allRecordsView;
 	
 	public EventChangeMFN(Browser browser, String dataBaseName, IJisisDataProvider service,
-			Text mfnText, ToolItem start, ToolItem toward, ToolItem last, ToolItem back,
+			Text mfnText, Combo combo, ToolItem start, ToolItem toward, ToolItem last, ToolItem back,
 			AllRecordsView allRecordsView){
 		this.browser = browser;
 		this.dataBaseName = dataBaseName;
 		this.service = service;
 		this.mfnText = mfnText;
+		this.combo = combo;
 		this.start = start;
 		this.toward = toward;
 		this.last = last;
@@ -59,11 +61,6 @@ public class EventChangeMFN implements KeyListener{
 	public void keyReleased(KeyEvent service) {
 		
 		if(service.keyCode == 13){
-		
-		  String currentView = allRecordsView.getCurrentView();
-		  if(currentView.equals(AbosMessages.get().VALUE_COMBO_MARC_VIEW))
-				currentView = "RAW";
-			
 		  firstMFN = allRecordsView.getFirstRecord().getMfn();
 		  lastMFN = allRecordsView.getLastRecord().getMfn();
 		  currentMFN = allRecordsView.getCurrentRecord().getMfn();
@@ -106,23 +103,7 @@ public class EventChangeMFN implements KeyListener{
           			List<String> dataBaseFormats = null;
           			try {
           				dataBaseFormats = this.service.getDatabaseFormats(dataBaseName, isisDefHome);
-          				
-          				int size = dataBaseFormats.size();
-        				int position = -1;
-        				for (int i = 0; i < size; i++) {
-        					String value = dataBaseFormats.get(i);
-        					if(value.equals(currentView)){
-        						position = i;
-        						break;
-        					}
-        				}
-        				
-        				String format = null;
-        				
-        				if(position != -1)
-        				format = dataBaseFormats.get(position);
-        				else
-        					format = dataBaseFormats.get(0);
+          				String format = dataBaseFormats.get(0);
           				
           				FormattedRecord formattedRecord = this.service.getFormattedRecord(dataBaseName, record, format, isisDefHome);
           				htmlString = formattedRecord.getRecord();
@@ -135,6 +116,7 @@ public class EventChangeMFN implements KeyListener{
           			allRecordsView.setCurrentRecord(record);
           			
                     mfnText.setText(String.valueOf(mfn));
+                    combo.select(0);
                     
                     if(firstMFN != lastMFN){
                     	 if(record.getMfn() == firstMFN){

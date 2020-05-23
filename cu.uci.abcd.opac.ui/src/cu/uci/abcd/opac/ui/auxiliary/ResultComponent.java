@@ -1,6 +1,11 @@
 package cu.uci.abcd.opac.ui.auxiliary;
 
+import java.awt.Desktop;
+import java.net.URI;
+
 import org.eclipse.rap.rwt.RWT;
+import org.eclipse.rap.rwt.client.service.UrlLauncher;
+import org.eclipse.rap.rwt.widgets.ExternalBrowser;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -253,7 +258,10 @@ public class ResultComponent extends Composite {
 
 				@Override
 				public void widgetSelected(SelectionEvent arg0) {
-					URLUtil.download(record.getUrl(), ReportType.PDF);
+					//TODO Fixed 					
+					//URLUtil.download(record.getUrl(), ReportType.PDF);					
+					 UrlLauncher launcher = RWT.getClient().getService( UrlLauncher.class );
+					launcher.openURL( record.getUrl() );
 				}
 
 				@Override

@@ -30,7 +30,7 @@ public class RecordValidator {
 	private boolean response;
 	private Color color;
 	private Image image;
-	private final int MAX_LENGTH = 300;
+	private final int MAX_LENGTH = 999999;
 
 	/**
 	 * @param children

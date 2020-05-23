@@ -329,7 +329,7 @@ public class ConsultLoanObject extends ContributorPage implements Contributor {
 		});
 
 		Label separator = new Label(compoButton, SWT.SEPARATOR | SWT.HORIZONTAL);
-		addSeparator(separator);http://www.forosdelweb.com/f179/pasar-fecha-jquery-datepicker-1055830/
+		addSeparator(separator);
    
 		compoButton1 = new Composite(parent, SWT.NORMAL);
 		addComposite(compoButton1);		
@@ -381,7 +381,7 @@ public class ConsultLoanObject extends ContributorPage implements Contributor {
 		return parent;
 
 	}
-	
+    
 	public void searchLoanObject(int page, int size) {
 		tabla.clearRows();
 		Page<LoanObject> listLoanObject = ((AllManagementLoanUserViewController) controller)

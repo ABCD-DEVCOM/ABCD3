@@ -1,13 +1,16 @@
 package cu.uci.abos.widget.show.content.domain;
    
 import java.awt.Image;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.unesco.jisis.corelib.record.Field;
 import org.unesco.jisis.corelib.record.Record;
 
 import cu.uci.abcd.domain.management.library.Library;
 
-public class StandarRecordIsis {	
+public class StandarRecordIsis {
+	
 
 	private Record record;
 	private String dataBaseName;
@@ -15,7 +18,7 @@ public class StandarRecordIsis {
 
 	private String controlNumber;
 	private String title;
-	private String author;
+	private List<String> author = new ArrayList<String>();
 	private String publication;
 	private int publicationDate;
 	private float rating;
@@ -23,7 +26,6 @@ public class StandarRecordIsis {
 	private String url;
 	private String fileName;
 	private String fileType;
-	private String resume;
 
 	String srcIcon = null;
 	Image imageIcon;
@@ -36,8 +38,8 @@ public class StandarRecordIsis {
 	}
 
 	public StandarRecordIsis(Record record, String dataBaseName) {
-		this.record = record;
-		this.dataBaseName = dataBaseName;
+		this.record = record;		
+		this.dataBaseName = dataBaseName;		
 		initializated();
 	}
 
@@ -45,13 +47,11 @@ public class StandarRecordIsis {
 
 		controlNumber = "";
 		title = "";
-		author = "";
 		publication = "";
 		recordType = "";
 		url = "";
 		fileName = "";
 		fileType = "";
-		resume = "";
 
 		try {
 
@@ -62,64 +62,35 @@ public class StandarRecordIsis {
 		}
 
 		try {
-			title = record.getField(245).getSubfield(0, "^a");
+
+			title = record.getField(245).getStringFieldValue();
+			Field titleField = (Field) record.getField(245);
+			title = titleField.getSubfield("a");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		if (title == null || title == "") {
+		try {   
 
-			try {
-				title = record.getField(222).getSubfield(0, "^a");
+			/*author.add((record.getField(100).getStringOccurrence(0).replaceAll(" +", " ").trim()));
+		 	*/Field authorField = (Field) record.getField(100);
+			author.add(authorField.getSubfield("a").replaceAll(" +", " ").trim());
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		if (title == null || title == "") {
-
-			title = "(...)";
-
-		}
-
-		if (author == null || author == "") {
-			try {
-
-				author = record.getField(100).getSubfield(0, "^a");
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-			if (author == null || author == "")
-				try {
-
-					author = record.getField(110).getSubfield(0, "^a");
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-			if (author == null || author == "")
-				try {
-					author = record.getField(111).getSubfield(0, "^a");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		try {
 
 			Field urlArchivo = (Field) record.getField(856);
-			url = urlArchivo.getSubfield(0, "^u");
+			url = urlArchivo.getSubfield("u");
 
 			Field nameField = (Field) record.getField(856);
-			fileName = nameField.getSubfield(0, "^f");
+			fileName = nameField.getSubfield("f");
 
 			Field kindField = (Field) record.getField(856);
-			fileType = kindField.getSubfield(0, "^q");
+			fileType = kindField.getSubfield("q");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -127,12 +98,12 @@ public class StandarRecordIsis {
 
 		try {
 
-			publication = record.getField(260).getSubfield(0, "^a");
-			publication += ", " + record.getField(260).getSubfield(0, "^b");
+			publication = ((Field) record.getField(260)).getSubfield("a");
+			publication += ", " + ((Field) record.getField(260)).getSubfield("b");
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}   
 
 		try {
 
@@ -151,25 +122,22 @@ public class StandarRecordIsis {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}    
 
 		try {
 
 			recordType = record.getField(3006).getStringFieldValue();
 
 		} catch (Exception e) {
-		}
-
-		try {
-			resume = record.getField(520).getSubfield(0, "^a");
-		} catch (Exception e) {
 			e.printStackTrace();
-		}
-
-		title = title.replaceAll(" +", " ").trim();
+		}	
+		
+		title = title.replaceAll(" +", " ").trim();		
 		publication = publication.replaceAll(" +", " ").trim();
-
+		
 	}
+	
+	
 
 	public String getDataBaseName() {
 		return dataBaseName;
@@ -219,11 +187,11 @@ public class StandarRecordIsis {
 		this.publicationDate = publicationDate;
 	}
 
-	public String getAuthor() {
+	public List<String> getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(String author) {
+	public void setAuthor(List<String> author) {
 		this.author = author;
 	}
 
@@ -289,10 +257,6 @@ public class StandarRecordIsis {
 
 	public void setRating(float rating) {
 		this.rating = rating;
-	}
-
-	public String getResume() {
-		return resume;
 	}
 
 }

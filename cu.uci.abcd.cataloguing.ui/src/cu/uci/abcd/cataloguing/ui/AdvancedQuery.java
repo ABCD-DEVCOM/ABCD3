@@ -209,7 +209,7 @@ public class AdvancedQuery extends ContributorPage {
 		FormDatas.attach(newSearchButton).atTopTo(actions, 0).atLeftTo(searchButton, 10);
 
 		// events
-		EventAdvanceQuery advanceQuery = new EventAdvanceQuery(component, ((ProxyController) controller), BibliographicConstant.BIBLIOGRAPHIC_DATABASE, content, father);
+		EventAdvanceQuery advanceQuery = new EventAdvanceQuery(component, ((ProxyController) controller), BibliographicConstant.BIBLIOGRAPHIC_DATA_BASE, content, father);
 
 		searchButton.addListener(SWT.Selection, advanceQuery);
 
